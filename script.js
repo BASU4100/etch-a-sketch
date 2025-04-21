@@ -1,6 +1,22 @@
 const container = document.querySelector("#container");
+const newPad = document.querySelector("#newPad");
+let size = 16;
+
+newPad.addEventListener("click", () => {
+    size = prompt("Number of Grid per Side (0< x <= 100)");
+    if (size>100 || size<=0 || isNaN(size)==true) {
+        alert("Wrong Input");
+        return;
+    }
+    const root = document.querySelector(":root");
+    let rootStyles = getComputedStyle(root);
+    let padSize = rootStyles.getPropertyValue("--padSize").trim();
+    root.style.setProperty("--gridSize", `calc(${padSize}/${+size})`);
+    createGrid(size);
+});
 
 function createGrid(num) {
+    container.textContent = "";
     let grid = undefined;
     for (let i = 0; i<num; i++) {
         for (let j = 0; j<num; j++) {
@@ -9,7 +25,7 @@ function createGrid(num) {
             container.appendChild(grid);
             eventListenerAddition(grid);
         }
-    }       
+    }      
 }
 
 function eventListenerAddition(grid) {
@@ -28,10 +44,10 @@ function adjustDarkness(grid, event) {
     }
     else if (mouseLeave === "false") {
         let darkness = gridStyles.getPropertyValue("--darkness");
-        darkness -= ((darkness>0)?0.1:0);
+        darkness = Math.round(((darkness>0)?darkness-0.1:0)*10)/10;
         grid.style.setProperty("--darkness",`${darkness}`);
         grid.style.setProperty("--mouseLeave","true");
     }
 }
 
-createGrid(16);
+createGrid(size);
