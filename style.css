@@ -1,0 +1,33 @@
+:root {
+    --padSize: min(90vh, 90vw);
+    --gridSize : calc(var(--padSize)/16);
+}
+
+*{
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    box-sizing: border-box;
+}
+
+#container {
+    height: var(--padSize);
+    width: var(--padSize);
+    display: flex;
+    flex-wrap: wrap;
+    border: 4px solid black;
+}
+
+.grid {
+    height: var(--gridSize);
+    width: var(--gridSize);
+    background: rgb(255, 209, 124);
+    border: 1px solid rgba(34, 34, 34, 0.25);
+    box-sizing: border-box;
+}
